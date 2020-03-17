@@ -1,6 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import commonStyle from '../../styles/common';
+import storage from '../../../libs/storage';
 import detailStore from './store';
 
 interface Props {
@@ -36,6 +37,25 @@ export default function DetailsScreen(props: Props) {
         title="Update the title"
         onPress={() => props.navigation.setOptions({title: 'Updated!'})}
       />
+      <Button
+        title="setStorage"
+        onPress={() =>
+          storage.save({
+            key: 'name',
+            data: 'DongyaLI',
+          })
+        }
+      />
+      <Button
+        title="getStorage"
+        onPress={async () => {
+          const res = await storage.load({key: 'name'});
+          console.log('gsagsagsad', res);
+        }}
+      />
+
+      {/* storage */}
+
       <Button title="fetchConstants" onPress={() => actions.fetchConstants()} />
       {state.constants.map((item: {remark: string}) => (
         <Text>{item.remark}</Text>
