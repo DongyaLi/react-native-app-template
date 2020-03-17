@@ -42,7 +42,7 @@ export default function DetailsScreen(props: Props) {
         onPress={() =>
           storage.save({
             key: 'name',
-            data: 'DongyaLI',
+            data: 'DongyaLILILI',
           })
         }
       />
