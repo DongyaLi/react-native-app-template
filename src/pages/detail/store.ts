@@ -5,7 +5,7 @@ import {fetchConstants} from '../../api/common';
 const detailStore = createStore(
   {
     count: 1,
-    constants: {},
+    constants: [],
   },
   {
     onPlus: () => state => {

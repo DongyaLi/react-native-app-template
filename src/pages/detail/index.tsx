@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from 'react';
-import {Button, View, Text} from 'react-native';
-
+import {Button, View, Text, StyleSheet} from 'react-native';
+import commonStyle from '../../styles/common';
 import detailStore from './store';
 
 interface Props {
@@ -21,9 +21,10 @@ export default function DetailsScreen(props: Props) {
   }, [props, state.count]);
 
   console.log('fadsas', props.route.params.title);
+  console.log('fadsas', state.constants);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={[styles.container, commonStyle.mt40]}>
       <Text>{state.count}</Text>
       <Button title="on plus" onPress={() => actions.onPlus()} />
       <Button title="on moin" onPress={() => actions.onMoin()} />
@@ -36,6 +37,17 @@ export default function DetailsScreen(props: Props) {
         onPress={() => props.navigation.setOptions({title: 'Updated!'})}
       />
       <Button title="fetchConstants" onPress={() => actions.fetchConstants()} />
+      {state.constants.map((item: {remark: string}) => (
+        <Text>{item.remark}</Text>
+      ))}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
