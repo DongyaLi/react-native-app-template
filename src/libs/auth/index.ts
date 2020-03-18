@@ -106,7 +106,11 @@ export async function getTGT(
 }
 
 // Request a Service Ticket
-async function getTicket(service: string, tgt: string, time: number) {
+async function getTicket(
+  service: string,
+  tgt: string,
+  time: number,
+): Promise<any> {
   // 获取ticket，只调用3次
   if (time <= 0) {
     throw new Error(INVALID_TICKET);
