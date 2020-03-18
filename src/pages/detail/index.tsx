@@ -2,6 +2,7 @@ import React, {useLayoutEffect} from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import commonStyle from '../../styles/common';
 import storage from '../../../libs/storage';
+import {loginCas} from '../../../libs/auth';
 import detailStore from './store';
 
 interface Props {
@@ -39,22 +40,35 @@ export default function DetailsScreen(props: Props) {
       />
       <Button
         title="setStorage"
-        onPress={() =>
+        onPress={() => {
           storage.save({
-            key: 'name',
-            data: 'DongyaLILILI',
-          })
-        }
+            key: 'username',
+            data: '05176',
+          });
+          storage.save({
+            key: 'password',
+            data: '123ldy',
+          });
+        }}
       />
       <Button
         title="getStorage"
         onPress={async () => {
-          const res = await storage.load({key: 'name'});
+          const res = await storage.load({key: 'username'});
           console.log('gsagsagsad', res);
         }}
       />
-
-      {/* storage */}
+      <Button
+        title="登录"
+        onPress={async () => {
+          const res = await storage.getBatchData([
+            {key: 'username'},
+            {key: 'password'},
+          ]);
+          console.log('gsagsagsad', res);
+          loginCas(res[0], res[1]);
+        }}
+      />
 
       <Button title="fetchConstants" onPress={() => actions.fetchConstants()} />
       {state.constants.map((item: {remark: string}) => (

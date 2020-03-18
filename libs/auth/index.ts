@@ -1,21 +1,26 @@
 import md5 from 'blueimp-md5';
+import DeviceInfo from 'react-native-device-info';
 import storage from '../storage';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
+import Config from '../../config';
+
 import {
   INVALID_TGT,
   INVALID_TICKET,
   INVALID_INFO,
   UA_CHANGED,
 } from '../../src/constants/errorMessage';
-import Config from '../../config';
+const PKG = require('../../package.json');
+
+const UA = `hawkeye-app-${Platform.OS}-${DeviceInfo.getUniqueId()}`;
 
 const defaultHeaders = {
-  'User-Agent': '',
+  'User-Agent': UA,
   'X-Requested-With': 'XMLHttpRequest',
   Accept: 'application/json',
   'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6',
-  version: '',
-  patchVersion: '',
+  version: PKG.version,
+  patchVersion: PKG.patchVersion,
 };
 
 function buildParams(obj: any) {
@@ -33,6 +38,8 @@ function buildParams(obj: any) {
 }
 
 const httpPost = (url: string) => async (param: any) => {
+  console.log('defaultHeaders', defaultHeaders);
+
   const resp = await fetch(`${url}`, {
     method: 'POST',
     headers: {
@@ -73,13 +80,16 @@ export async function getTGT(
   try {
     const resp: any = await httpPost(`${Config.CAS_SERVER}/v1/tickets`)(data);
     console.log('getTGT' + JSON.stringify(resp));
+    console.log('getTGT', resp);
     if (resp.status === 201) {
       const location = resp.headers.map.location[0];
       const pieces = location.split('/');
       console.log('TGTres' + pieces[pieces.length - 1]);
       return pieces[pieces.length - 1];
     }
-    const message = decodeURIComponent(resp.headers.map.message[0]);
+    const message = decodeURIComponent(resp.headers.map.message);
+    console.log('errorMessage', message);
+
     // ua发生变化 需要验证码
     if (resp.headers.map.needsmsvalidate[0] === '1') {
       const e: any = new Error(UA_CHANGED);
@@ -151,6 +161,8 @@ export async function loginCas(
 ) {
   try {
     const tgt = await getTGT(username, password, captcha);
+    console.log('tsggssdfsdfs', tgt);
+
     storage.save({
       key: 'username',
       data: username,
@@ -210,12 +222,12 @@ export async function getCaptcha(username: string, password: string) {
   return await resp.json();
 }
 
-let retryCount = 0;
 /**
  * [loginService 登录具体服务]
  * @param  {[String]} service [服务的完整url]
  * @return {[Promise]}         [description]
  */
+let retryCount = 0;
 export async function loginService(service: string) {
   if (retryCount > 3) {
     retryCount = 0;
