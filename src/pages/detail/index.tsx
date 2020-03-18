@@ -71,8 +71,8 @@ export default function DetailsScreen(props: Props) {
       />
 
       <Button title="fetchConstants" onPress={() => actions.fetchConstants()} />
-      {state.constants.map((item: {remark: string}) => (
-        <Text>{item.remark}</Text>
+      {state.constants.map((item: {id: number; remark: string}) => (
+        <Text key={item.id}>{item.remark}</Text>
       ))}
     </View>
   );

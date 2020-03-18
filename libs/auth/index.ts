@@ -3,7 +3,6 @@ import DeviceInfo from 'react-native-device-info';
 import storage from '../storage';
 import {Alert, Platform} from 'react-native';
 import Config from '../../config';
-
 import {
   INVALID_TGT,
   INVALID_TICKET,
@@ -11,7 +10,6 @@ import {
   UA_CHANGED,
 } from '../../src/constants/errorMessage';
 const PKG = require('../../package.json');
-
 const UA = `hawkeye-app-${Platform.OS}-${DeviceInfo.getUniqueId()}`;
 
 const defaultHeaders = {
@@ -263,35 +261,21 @@ export async function loginService(service: string) {
         const ret: any = await loginService(serviceUrl);
         return ret;
       } catch (e) {
-        Alert.alert('认证失败', 'Ticket错误，请联系管理员');
+        Alert.alert('认证失败', '登录失败，请联系管理员');
         retryCount = 999;
         return false;
       }
     }
     if (error.message === INVALID_TICKET) {
       console.log('error.message === INVALID_TICKET');
-      Alert.alert('认证失败', 'Ticket错误，请联系管理员');
+      Alert.alert('认证失败', '登录失败，请联系管理员');
       retryCount = 999;
       return false;
     }
     if (error.message === UA_CHANGED || error.message === INVALID_INFO) {
       console.log('error.message === UA_CHANGED');
       console.log('errormessage', error);
-      let errorText = '';
-      if (error.respMessage == '账号或密码错误！') {
-        errorText = error.respMessage;
-      } else if (error.respMessage.indexOf('账号被锁定') > -1) {
-        errorText = '账号已被锁定，请重新设置密码再试';
-      } else if (error.respMessage.indexOf('账户不存在') > -1) {
-        errorText = error.respMessage;
-      } else if (error.respMessage.indexOf('账户被禁用') > -1) {
-        errorText = '您的员工工号尚未启用，请联系人力资源部门';
-      } else if (error.respMessage.indexOf('忘记密码') > -1) {
-        errorText = error.respMessage;
-      } else {
-        errorText = error.respMessage;
-      }
-      Alert.alert(errorText);
+      Alert.alert(error.respMessage);
       retryCount = 999;
       return false;
     }
