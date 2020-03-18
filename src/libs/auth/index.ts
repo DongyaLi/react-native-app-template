@@ -2,14 +2,14 @@ import md5 from 'blueimp-md5';
 import DeviceInfo from 'react-native-device-info';
 import storage from '../storage';
 import {Alert, Platform} from 'react-native';
-import Config from '../../config';
+import Config from '../../../config';
 import {
   INVALID_TGT,
   INVALID_TICKET,
   INVALID_INFO,
   UA_CHANGED,
-} from '../../src/constants/errorMessage';
-const PKG = require('../../package.json');
+} from '../../constants/errorMessage';
+const PKG = require('../../../package.json');
 const UA = `hawkeye-app-${Platform.OS}-${DeviceInfo.getUniqueId()}`;
 
 const defaultHeaders = {

@@ -1,8 +1,8 @@
 import React, {useLayoutEffect} from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import commonStyle from '../../styles/common';
-import storage from '../../../libs/storage';
-import {loginCas} from '../../../libs/auth';
+import storage from '../../libs/storage';
+import {loginCas} from '../../libs/auth';
 import detailStore from './store';
 
 interface Props {
@@ -77,7 +77,6 @@ export default function DetailsScreen(props: Props) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -9,7 +9,7 @@ function checkStatus(response: Response) {
     return response;
   }
   const error: any = new Error(response.statusText);
-  error.response = response;
+  error.response = response
   throw error;
 }
 
@@ -64,7 +64,7 @@ const buildParams = (obj: any) => {
     }
   }
   return params.join('&');
-};
+}
 
 const fetchJSONByMethod = (method: string, headers?: any) => (url: string) => (
   query?: any,
@@ -91,22 +91,22 @@ const fetchJSONByMethod = (method: string, headers?: any) => (url: string) => (
       query = JSON.stringify(query);
       params.method = 'POST';
       params.body = query;
-      break;
+      break
     case 'JSONPUT':
       query = JSON.stringify(query);
       params.method = 'PUT';
       params.body = query;
-      break;
+      break
     case 'POST':
     case 'PUT':
     case 'DELETE':
       params.body = buildParams(query);
-      break;
+      break
     default:
       break;
   }
   return fetchJSON(queryUrl, params);
-};
+}
 
 export const fetchFormData = (url: string, formData: FormData) =>
   fetchJSON(url, {method: 'POST', body: formData});
