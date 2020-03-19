@@ -7,15 +7,17 @@ import detailStore from './store';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 export default function DetailsScreen(props: Props) {
   const [state, actions] = detailStore.useStore();
 
   useLayoutEffect(() => {
-    const {navigation} = props;
+    const {route, navigation} = props;
+    console.log(route);
     navigation.setOptions({
-      headerTitle: state.count,
+      headerTitle: route.params.title + state.count,
     });
   }, [props, state.count]);
 
@@ -27,8 +29,8 @@ export default function DetailsScreen(props: Props) {
       <Button title="on plus" onPress={() => actions.onPlus()} />
       <Button title="on moin" onPress={() => actions.onMoin()} />
       <Button
-        title="go to detail"
-        onPress={() => props.navigation.push('Details', {title: 'detaillll'})}
+        title="go to PageTwo"
+        onPress={() => props.navigation.push('PageTwo', {title: 'PageTwo'})}
       />
       <Button
         title="Update the title"

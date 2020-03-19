@@ -10,22 +10,19 @@ interface Props {
 export default function ProfileScreen(props: Props) {
   useFocusEffect(
     React.useCallback(() => {
-      Alert.alert('Screen was focused');
-      // Do something when the screen is focused
+      // Alert.alert('Screen was focused');
       return () => {
-        Alert.alert('Screen was unfocused');
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
+        // Alert.alert('Screen was unfocused');
       };
     }, []),
   );
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Profile Screen</Text>
+      <Text>User Screen</Text>
       <Button
-        title="Go to Settings"
-        onPress={() => props.navigation.navigate('Settings')}
+        title="Go to Home"
+        onPress={() => props.navigation.navigate('Home')}
       />
     </View>
   );

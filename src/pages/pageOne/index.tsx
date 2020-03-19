@@ -1,16 +1,19 @@
 import * as React from 'react';
 import {Button, View, Text} from 'react-native';
+
 interface Props {
   navigation: any;
   route: any;
 }
-export default function SettingsScreen(props: Props) {
+export default function HomeScreen(props: Props) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Settings Screen</Text>
+      <Text>PageOne Screen</Text>
       <Button
-        title="Go to Profile"
-        onPress={() => props.navigation.navigate('Profile')}
+        title="Go to PageTwo"
+        onPress={() =>
+          props.navigation.navigate('PageTwo', {title: 'come from PageOne'})
+        }
       />
     </View>
   );
