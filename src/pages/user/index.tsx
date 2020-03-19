@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, View, Text, Alert} from 'react-native';
+import {Button, View, Text, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
 interface Props {
@@ -18,7 +18,7 @@ export default function ProfileScreen(props: Props) {
   );
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={styles.container}>
       <Text>User Screen</Text>
       <Button
         title="Go to Home"
@@ -27,3 +27,11 @@ export default function ProfileScreen(props: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
