@@ -110,7 +110,7 @@ async function getTicket(
   service: string,
   tgt: string,
   time: number,
-): Promise<any> {
+): Promise<string | never> {
   // 获取ticket，只调用3次
   if (time <= 0) {
     throw new Error(INVALID_TICKET);
@@ -230,7 +230,7 @@ export async function getCaptcha(username: string, password: string) {
  * @return {[Promise]}         [description]
  */
 let retryCount = 0;
-export async function loginService(service: string) {
+export async function loginService(service: string): Promise<boolean> {
   if (retryCount > 3) {
     retryCount = 0;
     return false;
@@ -262,7 +262,7 @@ export async function loginService(service: string) {
           {key: 'password'},
         ]);
         await loginCas(result[0], result[1]);
-        const ret: any = await loginService(serviceUrl);
+        const ret: boolean = await loginService(serviceUrl);
         return ret;
       } catch (e) {
         Alert.alert('认证失败', '登录失败，请联系管理员');

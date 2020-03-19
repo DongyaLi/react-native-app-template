@@ -7,22 +7,18 @@ import detailStore from './store';
 
 interface Props {
   navigation: any;
-  route: any;
 }
 
 export default function DetailsScreen(props: Props) {
   const [state, actions] = detailStore.useStore();
 
   useLayoutEffect(() => {
-    const {route, navigation} = props;
-    const {params} = route;
-    const {title} = params || {};
+    const {navigation} = props;
     navigation.setOptions({
-      headerTitle: title + state.count,
+      headerTitle: state.count,
     });
   }, [props, state.count]);
 
-  console.log('fadsas', props.route.params.title);
   console.log('fadsas', state.constants);
 
   return (
