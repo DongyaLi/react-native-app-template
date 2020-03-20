@@ -20,6 +20,8 @@
  `react-native run-android` or  `npm run android`
  `react-native run-ios` or `npm run ios`
 
+  sometimes need to press 'r' on terminal
+
 ### Debug
 
   use the Command + D choose 'Start Remote JS Debugging'

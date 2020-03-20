@@ -34,7 +34,7 @@ export default function DetailsScreen(props: Props) {
       />
       <Button
         title="Update the title"
-        onPress={() => props.navigation.setOptions({title: 'Updated!'})}
+        onPress={() => props.navigation.setOptions({headerTitle: 'Updated!'})}
       />
       <Button
         title="setStorage"
