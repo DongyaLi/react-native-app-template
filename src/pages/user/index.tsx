@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useCallback} from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -9,7 +9,7 @@ interface Props {
 
 export default function ProfileScreen(props: Props) {
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       // Alert.alert('Screen was focused');
       return () => {
         // Alert.alert('Screen was unfocused');

@@ -22,6 +22,7 @@ export default function DetailsScreen(props: Props) {
   }, [props, state.count]);
 
   console.log('fadsas', state.constants);
+  console.log('fadsas', props.navigation);
 
   return (
     <View style={[styles.container, commonStyle.mt40]}>
